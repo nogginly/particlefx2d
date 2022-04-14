@@ -1,0 +1,21 @@
+AllCops:
+  TargetRubyVersion: 2.7
+  NewCops: enable
+
+Style/StringLiteralsInInterpolation:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+Naming/MethodParameterName:
+  inherit_mode:
+    override:
+      - Include
+  AllowedNames:
+    - x
+    - y
+
+Metrics/ClassLength:
+  Max: 128
+
+Metrics/MethodLength:
+  Max: 32
