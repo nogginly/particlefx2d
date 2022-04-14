@@ -2,7 +2,6 @@
 
 require 'ruby2d'
 require 'particlefx_ruby2d'
-require 'particlefx2d'
 
 # Test particle effect using Ruby2D
 class WhiteRedSmokeFX

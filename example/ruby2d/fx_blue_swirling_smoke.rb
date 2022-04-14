@@ -14,8 +14,8 @@ class BlueSwirlingSmokeFX
       particle_config: {
         x: Window.width / 2, x_range: -10.0..10.0,
         y: Window.height / 2, y_range: -5.0..5.0,
-        start_color: Color.new([0.5, 0.5, 1, 1]),
-        end_color: Color.new([0, 0, 0, 1]),
+        start_color: [0.5, 0.5, 1, 1],
+        end_color: [0, 0, 0, 1],
         angle: 0, angle_range: 0.0..360.0,
         size: 32, size_range: 4,
         start_scale: 0.5, end_scale: 1.5,

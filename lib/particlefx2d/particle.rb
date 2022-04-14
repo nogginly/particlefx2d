@@ -135,7 +135,7 @@ module ParticleFX2D
 
     # Initialize colours from configuration options
     def reset_color_from(opts)
-      @initial_color = value_from(opts, :color, alt_name: :colour) || Private::Color.new([0, 1.0, 0, 1.0])
+      @initial_color = Private::Color.new(value_from(opts, :color, alt_name: :colour) || [0, 1.0, 0, 1.0])
       @end_color = value_from(opts, :end_color, alt_name: :end_colour, default: @initial_color)
       @color = Private::Color.new(@initial_color)
       @delta_color = Private::Color.new(@end_color).subtract!(@initial_color).divide_by!(@initial_life)
