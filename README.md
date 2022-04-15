@@ -1,5 +1,7 @@
 # ParticleFX2D
 
+[![Gem Version](https://badge.fury.io/rb/particlefx2d.svg)](https://badge.fury.io/rb/particlefx2d)
+
 This is a 2D particle effects API for use with any Ruby graphics API.
 
 > **Caution**
