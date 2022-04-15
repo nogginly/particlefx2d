@@ -85,8 +85,8 @@ The gem includes a couple of pre-defined particle renderer factories for Ruby2D:
 
 | `ShapeRendererFactory`                                                                                                                  | `CanvasRendererFactory`                                                                                     |
 | --------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| [fx_white_red_smoke](example/ruby2d/fx_white_red_smoke.rb) ![white red smoke](example/images/fx_white_red_smoke.png)                    | [fx_square_burst](example/ruby2d/fx_square_burst.rb) ![fx_square_burst](example/images/fx_square_burst.png) |
-| [fx_blue_swirling_smoke](example/ruby2d/fx_blue_swirling_smoke.rb) ![fx_blue_swirling_smoke](example/images/fx_blue_swirling_smoke.png) |
+| [fx_white_red_smoke](example/ruby2d/fx_white_red_smoke.rb) ![white red smoke](example/images/fx_white_red_smoke.gif)                    | [fx_square_burst](example/ruby2d/fx_square_burst.rb) ![fx_square_burst](example/images/fx_square_burst.gif) |
+| [fx_blue_swirling_smoke](example/ruby2d/fx_blue_swirling_smoke.rb) ![fx_blue_swirling_smoke](example/images/fx_blue_swirling_smoke.gif) |
 
 The above are screenshots from running the various examples included. The first one with the red-white smoke is implemented in the complete example below.
 
