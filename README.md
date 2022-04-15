@@ -2,6 +2,23 @@
 
 This is a 2D particle effects API for use with any Ruby graphics API.
 
+> **Caution**
+>
+> Most of the functionality is  fairly stable and any changes will likely be additive. However portions identified as "preview" are likely to experience API changes.
+
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Setting up an Emitter](#setting-up-an-emitter)
+  - [Using Ruby2D](#using-ruby2d)
+    - [Examples](#examples)
+  - [Knobs & Dials](#knobs--dials)
+    - [Emitter Controls](#emitter-controls)
+    - [Particle Controls](#particle-controls)
+- [Development](#development)
+- [Contributing](#contributing)
+- [License](#license)
+- [Code of Conduct](#code-of-conduct)
+
 ## Installation
 
 Add this line to your application's Gemfile:
