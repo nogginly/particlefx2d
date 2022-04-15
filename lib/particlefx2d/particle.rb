@@ -8,7 +8,7 @@ module ParticleFX2D
   # A single 2D particle.
   #
   class Particle
-    attr_reader :x, :y, :color, :end_color, :velocity, :speed, :angle, :life, :size, :shape,
+    attr_reader :x, :y, :color, :end_color, :velocity, :speed, :angle, :life, :size, :renderer,
                 :gravity_x, :gravity_y, :radial_accel, :tangent_accel, :scale, :end_scale
 
     # @!visibility private
@@ -53,15 +53,15 @@ module ParticleFX2D
     end
 
     #
-    # Set the rendering shape/peer for the particle.
+    # Set the rendering peer for the particle.
     #
-    # @param shape The renderer, must implement following methods:
-    # - +show+ Make the particle visible
-    # - +hide+ Make the particle invisible
-    # - +sync!(particle)+ Update the display properties based on the particle's properties
+    # @param renderer The renderer must implement following methods:
+    # - +show_particle(p)+ The specified particle is visible.
+    # - +hide_particle(p)+ The specified particle is no longer visible.
+    # - +draw_particle(p)+ Render the specified particle; this method is called only if a particle is visible.
     #
-    def shape!(shape)
-      @shape = shape
+    def renderer!(renderer)
+      @renderer = renderer
     end
 
     #
@@ -85,7 +85,7 @@ module ParticleFX2D
       @color.add!(@delta_color, each_times: frame_time)
       update_forces
       update_motion frame_time
-      @shape&.sync! self
+      @renderer&.draw_particle self
     end
 
     private

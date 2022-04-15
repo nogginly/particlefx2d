@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
-require_relative 'particle_shape'
+require_relative 'shape_renderer'
 
 module ParticleFX2D
   module Ruby2D
     #
     # A particle shape that is based on the Ruby2D _Image_.
     class ParticleImage < ::Ruby2D::Image
-      include ParticleShape
+      include ShapeRenderer
 
       # This class method is used to identify the image file to load.
       # Create a subclass and override this method to define your own
       # particle shapes based on image files.
       def self.image_path
-        "#{File.dirname(__FILE__)}/particle.png"
+        "#{File.dirname(__FILE__)}/../images/particle.png"
       end
 
       # Called by the emitter for each particle that it manages. Creates an instance
@@ -24,7 +24,7 @@ module ParticleFX2D
       #
       def self.for(particle)
         s = ParticleImage.new image_path, width: particle.size, height: particle.size
-        s.hide
+        s.remove
         s
       end
 
@@ -36,7 +36,7 @@ module ParticleFX2D
       end
 
       # Sets the image size using the particle size and calls #super
-      def sync!(particle)
+      def draw_particle(particle)
         self.width = self.height = particle.size
         super
       end

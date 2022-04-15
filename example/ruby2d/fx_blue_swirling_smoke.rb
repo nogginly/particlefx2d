@@ -8,7 +8,7 @@ require 'particlefx2d'
 class BlueSwirlingSmokeFX
   def self.new_emitter
     ParticleFX2D::Emitter.new(
-      renderer: ParticleFX2D::Ruby2D::ParticleImage,
+      renderer_factory: ParticleFX2D::Ruby2D::ShapeRendererFactory.new(ParticleFX2D::Ruby2D::ParticleImage),
       quantity: 200,
       emission_rate: 200,
       particle_config: {

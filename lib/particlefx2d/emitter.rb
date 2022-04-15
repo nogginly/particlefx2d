@@ -42,7 +42,7 @@ module ParticleFX2D
       @emission_rate = opts[:emission_rate].to_f
       @emission = 0
       @particle_config = opts[:particle_config]
-      @renderer = opts[:renderer]
+      @renderer_factory = opts[:renderer_factory]
       setup_particle_pool
     end
 
@@ -52,11 +52,13 @@ module ParticleFX2D
     # @param [Float] frame_time in seconds (essentially, 1 / fps)
     #
     def update(frame_time)
+      @renderer_factory.on_update_start
       emit_particles frame_time
       @active.each do |p|
         p.update frame_time
         free_particle p unless p.alive?
       end
+      @renderer_factory.on_update_end
     end
 
     #
@@ -85,8 +87,8 @@ module ParticleFX2D
       @pool = []
       @quantity.times do
         p = Particle.new
-        s = @renderer.for(p)
-        p.shape! s
+        renderer = @renderer_factory.renderer_for(p)
+        p.renderer! renderer
         free_particle p
       end
     end
@@ -146,7 +148,7 @@ module ParticleFX2D
 
       @active << p
       reset_particle p
-      p.shape&.show
+      p.renderer&.show_particle(p)
     end
 
     # Return a particle back to the unused pool,
@@ -155,7 +157,7 @@ module ParticleFX2D
       ix = @active.find_index particle
       @active.delete_at ix unless ix.nil?
       @pool.push particle
-      particle.shape&.hide
+      particle.renderer&.hide_particle(p)
     end
   end
 end

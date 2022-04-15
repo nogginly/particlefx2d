@@ -1,21 +1,35 @@
 # frozen_string_literal: true
 
+require_relative '../renderer_factory'
+
 module ParticleFX2D
   module Ruby2D
-    # The base definition for a Ruby2D-based shape that can be peered to
+    # The base definition for a Ruby2D shape-based renderer that can be peered to
     # a particle managed by the ParticleFX2D _Emitter_. Include this when defining
     # Ruby2D shape-specific classes to provide the Emitter to render
-    # the particle
-    module ParticleShape
+    # the particle.
+    #
+    # This approach requires a shape per particle.
+    module ShapeRenderer
+      include ParticleFX2D::Renderer
+
       # Show the particle. Used when a particle is activated.
-      def show
+      def show_particle(_particle)
         add
       end
 
       # Hide the particle. Used when a particle is deactivated.
-      def hide
+      def hide_particle(_particle)
         remove
       end
+
+      # Updates the shape's properties; no explicit drawing needed.
+      def draw_particle(particle)
+        center!(particle.x, particle.y)
+        color!(particle.color)
+      end
+
+      private
 
       # Set the shape's center position. Must be implemented per shape.
       # @raise [StandardError] because this method is unimplemented.
@@ -32,15 +46,6 @@ module ParticleFX2D
         color.g = particle_color.g
         color.b = particle_color.b
         color.opacity = particle_color.opacity
-      end
-
-      # Sync the shape's visual attributes based on those that apply from the +particle+.
-      # This method calls #center! and #color! already. Make sure #center! is implemented
-      # in the particle shape class.
-      #
-      def sync!(particle)
-        center!(particle.x, particle.y)
-        color!(particle.color)
       end
     end
   end

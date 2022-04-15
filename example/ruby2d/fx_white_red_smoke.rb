@@ -7,7 +7,7 @@ require 'particlefx_ruby2d'
 class WhiteRedSmokeFX
   def self.new_emitter
     ParticleFX2D::Emitter.new(
-      renderer: ParticleFX2D::Ruby2D::ParticleImage,
+      renderer_factory: ParticleFX2D::Ruby2D::ShapeRendererFactory.new(ParticleFX2D::Ruby2D::ParticleImage),
       quantity: 100,
       emission_rate: 15,
       particle_config: {

@@ -23,7 +23,7 @@ Or install it yourself as:
 After the gem has been installed, using `ParticleFX2D` involves the following steps:
 
 1. Define an emitter
-2. Define a particle renderer (or use the ones included if you're using [Ruby2D](https://www.ruby2d.com/))
+2. Define a particle renderer factory and renderer (or use the ones included if you're using [Ruby2D](https://www.ruby2d.com/))
 3. Call the emitter's `#update` method from your app's animation loop
 
 ### Setting up an Emitter
@@ -32,7 +32,7 @@ After the gem has been installed, using `ParticleFX2D` involves the following st
 require 'particlefx2d'
 
 fx = ParticleFX2D::Emitter.new(
-      renderer: <<PARTICLE SHAPE RENDERER>>,    # particle renderer
+      renderer_factory: <<RENDERER_FACTORY>>,   # particle renderer factory
       quantity: 100,                            # max no. of particles
       emission_rate: 15,                        # emit particles/sec
       particle_config: {
@@ -52,25 +52,31 @@ fx = ParticleFX2D::Emitter.new(
 
 ### Using Ruby2D
 
-The gem includes a couple of pre-defined particle renderers for Ruby2D:
+The gem includes a couple of pre-defined particle renderer factories for Ruby2D:
 * `ParticleFX2D::Ruby2D::`
-  * `ParticleImage`
-    * Use a particle blob via `Ruby2D::Image` as texture to render a particle
-  * `ParticleCircle`
-    * Use a `Ruby2D::Circle` to render a particle
+  * `ShapeRendererFactory` which can be instantiated by supplying it an object that implements `ShapeRenderer` methods, such as the following pre-defined renderers:
+    * `ParticleImage`
+      * Use a particle blob via `Ruby2D::Image` as texture to render a particle
+    * `ParticleCircle`
+      * Use a `Ruby2D::Circle` to render a particle
+  * `CanvasRendererFactory` which can be instantiated with a `Ruby2D::Canvas` into which the particles are drawn as squares.
+    * The Canvas in Ruby2D is in its early days so consider this factory a preview _with many changes expected_.
 
-Each of these can be specified in place of `<<PARTICLE SHAPE RENDERER>>` in the above example. 
+#### Examples
 
-![white red smoke](example/images/fx_white_red_smoke.png)
+| `ShapeRendererFactory`                                                                                                                  | `CanvasRendererFactory`                                                                                     |
+| --------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| [fx_white_red_smoke](example/ruby2d/fx_white_red_smoke.rb) ![white red smoke](example/images/fx_white_red_smoke.png)                    | [fx_square_burst](example/ruby2d/fx_square_burst.rb) ![fx_square_burst](example/images/fx_square_burst.png) |
+| [fx_blue_swirling_smoke](example/ruby2d/fx_blue_swirling_smoke.rb) ![fx_blue_swirling_smoke](example/images/fx_blue_swirling_smoke.png) |
 
-The above is a screen shot from running the following complete example (which you can find [here](example/ruby2d/fx_white_red_smoke.rb)).
+The above are screenshots from running the various examples included. The first one with the red-white smoke is implemented in the complete example below.
 
 ```ruby
 require 'ruby2d'
 require 'particlefx_ruby2d'
 
 fx = ParticleFX2D::Emitter.new(
-      renderer: ParticleFX2D::Ruby2D::ParticleImage,
+      renderer_factory: ParticleFX2D::Ruby2D::ShapeRendererFactory.new(ParticleFX2D::Ruby2D::ParticleImage),
       quantity: 100,                            # max no. of particles
       emission_rate: 15,                        # emit particles/sec
       particle_config: {

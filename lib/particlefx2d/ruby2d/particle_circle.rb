@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require_relative 'particle_shape'
+require_relative 'shape_renderer'
 
 module ParticleFX2D
   module Ruby2D
     #
     # A particle shape that is based on the Ruby2D _Circle_ shape.
     class ParticleCircle < ::Ruby2D::Circle
-      include ParticleShape
+      include ShapeRenderer
 
       # Called by the emitter for each particle that it manages. Creates an instance
       # of _ParticleCircle_ intialized with the particle's position, size and colour.
@@ -18,7 +18,7 @@ module ParticleFX2D
         s = ParticleCircle.new x: particle.x, y: particle.y,
                                radius: particle.size / 2
         s.color! particle.color
-        s.hide
+        s.remove
         s
       end
 
@@ -29,7 +29,7 @@ module ParticleFX2D
       end
 
       # Sets the radius using the particle size and calls #super
-      def sync!(particle)
+      def draw_particle(particle)
         self.radius = particle.size / 2
         super
       end
