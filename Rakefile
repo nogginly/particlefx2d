@@ -16,4 +16,10 @@ end
 
 RuboCop::RakeTask.new
 
+desc 'Uninstall gem'
+task :uninstall do
+  puts 'Uninstalling'
+  system 'gem uninstall particlefx2d --executables'
+end
+
 task default: %i[spec rubocop]

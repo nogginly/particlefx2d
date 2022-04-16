@@ -4,6 +4,11 @@
 
 - None so far
 
+## [0.4.0]
+
+- Added [Math2D](https://github.com/UalaceCafe/math2d) runtime dependency for vector maths
+- Tweaked `CanvasRendererFactory` to detect `fill_rectangle` if present
+
 ## [0.3.0]
 
 - Defined `Renderer` and `RendererFactory` modules to define how particles are displayed

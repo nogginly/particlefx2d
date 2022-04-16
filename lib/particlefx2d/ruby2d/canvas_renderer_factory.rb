@@ -20,6 +20,7 @@ module ParticleFX2D
       #                                the Canvas so that each attempt to draw into it will not cause a texture update.
       def initialize(canvas)
         @canvas = canvas
+        @fill_method = canvas.class.method_defined?(:fill_rectangle, true)
       end
 
       # Return a particle renderer.
@@ -31,9 +32,7 @@ module ParticleFX2D
 
       # Clear the canvas before the next update cycle
       def on_update_start
-        @canvas.draw_rectangle(x: 0, y: 0,
-                               width: @canvas.width, height: @canvas.height,
-                               color: [0, 0, 0, 0])
+        fill_rect(0, 0, @canvas.width, @canvas.height, [0, 0, 0, 0])
       end
 
       # Update the canvas at the end of the next update cycle
@@ -54,9 +53,21 @@ module ParticleFX2D
         size = particle.size
         x = particle.x - (size / 2)
         y = particle.y - (size / 2)
-        @canvas.draw_rectangle(x: x, y: y,
-                               width: size, height: size,
-                               color: particle.color.to_a)
+        fill_rect(x, y, size, size, particle.color.to_a)
+      end
+
+      private
+
+      def fill_rect(x, y, width, height, color)
+        if @fill_method
+          @canvas.fill_rectangle(x: x, y: y,
+                                 width: width, height: height,
+                                 color: color)
+        else
+          @canvas.draw_rectangle(x: x, y: y,
+                                 width: width, height: height,
+                                 color: color)
+        end
       end
     end
   end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative 'private/vector2'
 require_relative 'private/color'
+require 'math2d'
 
 module ParticleFX2D
   #
@@ -42,8 +42,8 @@ module ParticleFX2D
     def reset!(opts = {})
       @initial_life = @life = value_from(opts, :life_time, default: 100).to_f
       @initial_size = @size = value_from(opts, :size, default: 5)
-      @gravity = Private::Vector2.new value_from(opts, :gravity_x, default: 0),
-                                      value_from(opts, :gravity_y, default: 0)
+      @gravity = Vector2D.new value_from(opts, :gravity_x, default: 0),
+                              value_from(opts, :gravity_y, default: 0)
       # following may depend on initial life and size
       reset_forces opts
       reset_scale_from opts
@@ -99,17 +99,17 @@ module ParticleFX2D
     # Update the force of acceleration based on configured gravity, radial accel and
     # tangential accel if applicable.
     def update_forces
-      @forces.copy! @gravity
+      @forces.replace! @gravity
       return @forces if (@radial_accel.zero? && @tangent_accel.zero?) || (@x == @initial_x && @y == @initial_y)
 
-      @radial.set!(@x, @y)
+      @radial.set(@x, @y)
              .subtract!(@initial_x, @initial_y)
              .normalize!
-      @tangential.copy!(@radial)
-                 .cross!
+      @tangential.replace!(@radial)
+                 .perp!
                  .times!(@tangent_accel)
-      @forces.add_vector!(@radial.times!(@radial_accel))
-             .add_vector!(@tangential)
+      @forces.plus!(@radial.times!(@radial_accel))
+             .plus!(@tangential)
     end
 
     # Update the motion for a frame of animation based on the updated forces and velocity
@@ -117,7 +117,7 @@ module ParticleFX2D
       @forces.times!(frame_time)
       @x += accelerated_velocity @velocity.x * frame_time, @forces.x
       @y += accelerated_velocity @velocity.y * frame_time, @forces.y
-      @velocity.add_vector! @forces
+      @velocity.plus! @forces
     end
 
     # Initialize position from configuration options
@@ -155,17 +155,17 @@ module ParticleFX2D
       @angle = value_from(opts, :angle, default: 0).to_f
       @angle_in_radians = nil
       @speed = value_from(opts, :speed, default: 100).to_f
-      @velocity ||= Private::Vector2.new
+      @velocity ||= Vector2D.new
       angle_rad = @angle * Math::PI / 180
-      @velocity.set! @speed * Math.cos(angle_rad),
-                     -@speed * Math.sin(angle_rad)
+      @velocity.set @speed * Math.cos(angle_rad),
+                    -@speed * Math.sin(angle_rad)
     end
 
     # Initialize forces from configuration options
     def reset_forces(opts)
-      @radial ||= Private::Vector2.new
-      @tangential ||= Private::Vector2.new
-      @forces ||= Private::Vector2.new
+      @radial ||= Vector2D.new
+      @tangential ||= Vector2D.new
+      @forces ||= Vector2D.new
       @radial_accel = value_from(opts, :radial_acceleration, default: 0)
       @tangent_accel = value_from(opts, :tangential_acceleration, default: 0)
     end

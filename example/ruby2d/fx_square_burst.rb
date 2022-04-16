@@ -4,7 +4,7 @@ require 'ruby2d'
 require 'particlefx_ruby2d'
 
 # Test particle effect using Ruby2D
-class WhiteRedSmokeFX
+class SquareBurstFX
   def self.new_emitter
     ParticleFX2D::Emitter.new(
       renderer_factory: ParticleFX2D::Ruby2D::CanvasRendererFactory.new(
@@ -30,7 +30,7 @@ class WhiteRedSmokeFX
   end
 end
 
-emitter = WhiteRedSmokeFX.new_emitter
+emitter = SquareBurstFX.new_emitter
 tick = 0
 update do
   frame_time = 1.0 / get(:fps)
