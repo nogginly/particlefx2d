@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
   spec.metadata['rubygems_mfa_required'] = 'true'
 
   # no deployment dependencies
+  spec.add_runtime_dependency 'math2d', '~> 1.4', '>= 1.4.1'
 
   # development
   spec.add_development_dependency 'rake'
