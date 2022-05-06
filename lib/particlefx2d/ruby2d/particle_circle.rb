@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'shape_renderer'
-
 module ParticleFX2D
   module Ruby2D
     #

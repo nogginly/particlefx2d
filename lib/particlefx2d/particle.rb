@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'private/color'
-require 'math2d'
-
 module ParticleFX2D
   #
   # A single 2D particle.

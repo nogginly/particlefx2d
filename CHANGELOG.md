@@ -4,6 +4,12 @@
 
 - None so far
 
+## [0.5.0]
+
+- Modified to remove all `require` and `require_relative` calls from the inner source files.
+- Instead the outer files (e.g. `particlefx2d.rb`) make sure all the inner files are pulled in the right order.
+- Why? A step towards being able to use this with `mruby` (I hope.)
+
 ## [0.4.0]
 
 - Added [Math2D](https://github.com/UalaceCafe/math2d) runtime dependency for vector maths

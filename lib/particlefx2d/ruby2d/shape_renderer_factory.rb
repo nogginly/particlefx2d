@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../renderer_factory'
-
 module ParticleFX2D
   module Ruby2D
     #

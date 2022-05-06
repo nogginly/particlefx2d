@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'particle'
-
 module ParticleFX2D
   #
   # A particle effect emitter

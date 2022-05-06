@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../renderer_factory'
-
 module ParticleFX2D
   module Ruby2D
     # The base definition for a Ruby2D shape-based renderer that can be peered to

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    particlefx2d (0.4.0)
+    particlefx2d (0.5.0)
       math2d (~> 1.4, >= 1.4.1)
 
 GEM

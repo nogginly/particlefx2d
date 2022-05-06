@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../renderer_factory'
-
 module ParticleFX2D
   module Ruby2D
     # A shared surface renderer that uses Ruby2D's _Canvas_ to draw into. This is both

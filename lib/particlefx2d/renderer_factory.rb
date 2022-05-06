@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'renderer'
-
 module ParticleFX2D
   # Defines a RendererFactory. Each emitter should have it's own
   # factory which is called once per particle to create a Renderer.
